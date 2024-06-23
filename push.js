@@ -29,7 +29,7 @@ exec('git add -A', (err, stdout, stderr) => {
     console.error(stderr);
 
     // 执行git push命令
-    exec('git push', (err, stdout, stderr) => {
+    exec('git push origin main', (err, stdout, stderr) => {
       if (err) {
         console.error(`执行git push命令时出错: ${err}`);
         return;
