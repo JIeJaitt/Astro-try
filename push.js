@@ -1,4 +1,8 @@
-const { exec } = require('child_process');
+// 替换前
+// const { exec } = require('child_process');
+
+// 替换后
+import { exec } from 'child_process';
 
 // 获取当前时间并格式化时间戳
 const currentTime = new Date();
