@@ -1,0 +1,56 @@
+---
+import "/node_modules/katex/dist/katex.min.css";
+import Profile from "../components/ProfileCard.astro";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ThemeIcon from "../components/ThemeIcon.astro";
+import { ViewTransitions } from "astro:transitions";
+import {
+  SITE_TITLE,
+  SITE_DESCRIPTION,
+  USER_NICKNAME,
+  USER_DESCRIPTION,
+  TRANSITION_API,
+} from "../consts";
+const {
+  image,
+  site_title = SITE_TITLE,
+  site_description = SITE_DESCRIPTION,
+  user_name = USER_NICKNAME,
+  user_description = USER_DESCRIPTION,
+  includeSidebar = true,
+  PageID,
+} = Astro.props;
+---
+
+<html lang="zh-cn" class="bg-base-300" title="main-page">
+  <title class="sr-only">Frosti</title>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <BaseHead title={site_title} description={site_description} image={image} />
+    {TRANSITION_API && <ViewTransitions />}
+  </head>
+  <body>
+    <script src="../scripts/copybutton.mjs"></script>
+    <script src="../scripts/time.mjs"></script>
+    <Header title={SITE_TITLE} />
+    <main class="main">
+      <div class="profile">
+        {
+          includeSidebar && (
+            <Profile name={user_name} desc={user_description} PageID={PageID} />
+          )
+        }
+      </div>
+      <div class="background">
+        <div class="base-background">
+          <slot />
+          <Footer />
+          <br />
+        </div>
+      </div>
+    </main>
+    <ThemeIcon />
+  </body>
+</html>
