@@ -1,5 +1,5 @@
 {
-  "name": "vigorous-venus",
+  "name": "lunar-limb",
   "type": "module",
   "version": "1.2.0",
   "scripts": {
@@ -10,6 +10,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/check": "^0.5.8",
     "@astrojs/mdx": "^2.3.1",
     "@astrojs/rss": "^4.0.6",
     "@astrojs/sitemap": "^3.1.5",
@@ -23,8 +24,7 @@
     "remark-math": "^6.0.0",
     "sass": "^1.77.5",
     "shiki": "^1.6.5",
-    "@astrojs/check": "^0.7.0",
-    "typescript": "^5.5.2"
+    "typescript": "^5.2.2"
   },
   "devDependencies": {
     "daisyui": "^4.12.2",
