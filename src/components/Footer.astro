@@ -1,12 +1,15 @@
 ---
-const today = new Date();
+import { USER_NAME } from "../consts";
+import { USER_SITE } from "../consts";
 ---
 
-<footer class="footer card bg-base-100 shadow-xl p-8">
-  <aside>
+<footer
+  class="relative footer gap-0 items-start card bg-base-100 shadow-xl p-8 items-center fade-in-up transition-colors"
+>
+  <aside class="grid-flow-col items-center">
     <svg
-      width="50"
-      height="50"
+      width="36"
+      height="36"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
       fill-rule="evenodd"
@@ -18,12 +21,15 @@ const today = new Date();
       ></path>
     </svg>
     <p>
-      Developed by <a
-        href="https://www.saroprock.com"
-        target="_blank"
-        class="font-bold">EveSunMaple</a
+      Copyright © <a href={USER_SITE} target="_blank" class="font-bold"
+        >{USER_NAME}</a
       >
-      <br />using
+      {new Date().getFullYear()} - All right reserved
+    </p>
+  </aside>
+  <nav>
+    <p>
+      Powered by
       <!-- Thanks for using this template. You can keep this line to support my work :) -->
       <a
         href="https://github.com/EveSunMaple/Frosti"
@@ -31,84 +37,5 @@ const today = new Date();
         class="font-bold">Frosti Template ⚡️</a
       >
     </p>
-  </aside>
-  <nav>
-    <div class="stats shadow">
-      <div class="stat">
-        <div class="stat-figure text-primary">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            class="inline-block h-8 w-8 stroke-current"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-            ></path>
-          </svg>
-        </div>
-        <div class="stat-title">Page Views</div>
-        <div class="stat-value text-primary">
-          <span id="busuanzi_value_page_pv"
-            ><span class="loading loading-spinner loading-xs"></span></span
-          >
-        </div>
-        <div class="stat-desc">Using buzuanzi</div>
-      </div>
-
-      <div class="stat">
-        <div class="stat-figure text-secondary">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            class="inline-block h-8 w-8 stroke-current"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-          </svg>
-        </div>
-        <div class="stat-title">Total Views</div>
-        <div class="stat-value text-secondary">
-          <span id="busuanzi_value_site_pv"
-            ><span class="loading loading-spinner loading-xs"></span></span
-          >
-        </div>
-        <div class="stat-desc">Using buzuanzi</div>
-      </div>
-    </div>
   </nav>
-  <div id="busuanzi"></div>
 </footer>
-
-<script>
-  document.addEventListener("astro:page-load", () => {
-    const busuanziDiv = document.getElementById("busuanzi");
-    if (busuanziDiv) {
-      const script = document.createElement("script");
-      script.src = "//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
-      script.async = true;
-      busuanziDiv.appendChild(script);
-    }
-    function formatNumber(ID) {
-      const element = document.getElementById(ID);
-        const text = element.textContent.trim();
-        const number = parseFloat(text);
-        if (number >= 1000000) {
-          element.textContent = (number / 1000000).toFixed(1) + "M";
-        } else if (number >= 1000) {
-          element.textContent = (number / 1000).toFixed(1) + "K";
-        }
-    }
-    setTimeout(function() {
-    formatNumber("busuanzi_value_page_pv");
-    formatNumber("busuanzi_value_site_pv");
-}, 500);
-  });
-</script>

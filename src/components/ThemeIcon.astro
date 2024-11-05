@@ -2,11 +2,11 @@
 
 ---
 
-<div
-  class="flex justify-center card bg-base-100 shadow-xl sidebtn"
-  id="btn-theme"
+<button
+  class="flex justify-center card bg-base-100 btn btn-ghost w-auto h-10"
+  id="themeToggle"
 >
-  <label for="themeToggle1" class="" id="themeLabel1"
+  <label for="themeToggle1" id="themeLabel1" class="hidden"
     ><span class="sr-only">Theme Toggle</span>
     <input type="checkbox" id="themeToggle1" />
     <svg
@@ -28,44 +28,68 @@
       ></path>
     </svg>
   </label>
-</div>
+</button>
 
+<button
+  class="flex justify-center card bg-base-100 btn btn-ghost w-auto h-10"
+  id="backToTop"
+  ><span class="sr-only">To Top Button</span><svg
+    viewBox="0 0 24 24"
+    fill="fill-current w-10 h-10"
+    xmlns="http://www.w3.org/2000/svg"
+    ><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g
+      id="SVGRepo_tracerCarrier"
+      stroke-linecap="round"
+      stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
+      <path
+        d="M12 5V19M12 5L6 11M12 5L18 11"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path>
+    </g></svg
+  ></button
+>
 <script>
-  document.addEventListener("astro:page-load", () => {
-    const setTheme = (theme) => {
+  document.addEventListener("DOMContentLoaded", () => {
+    const setTheme = (theme: string) => {
       document.documentElement.setAttribute("data-theme", theme);
       localStorage.setItem("theme", theme);
     };
 
-    const storedTheme = localStorage.getItem("theme");
-    if (storedTheme) {
-      setTheme(storedTheme);
-    } else {
-      const userPreferredTheme = window.matchMedia(
-        "(prefers-color-scheme: dracula)"
-      ).matches
-        ? "dracula"
-        : "winter";
-      setTheme(userPreferredTheme);
-    }
+    const themeToggle = document.getElementById("themeToggle");
+    const themeLabel1 = document.getElementById(
+      "themeLabel1",
+    ) as HTMLLabelElement;
+    const themeToggle1 = document.getElementById(
+      "themeToggle1",
+    ) as HTMLInputElement;
+    const themeLabel2 = document.getElementById(
+      "themeLabel2",
+    ) as HTMLLabelElement;
+    const themeToggle2 = document.getElementById(
+      "themeToggle2",
+    ) as HTMLInputElement;
 
-    const themeLabel1 = document.getElementById("themeLabel1");
-    const themeToggle1 = document.getElementById("themeToggle1");
-    const themeLabel2 = document.getElementById("themeLabel2");
-    const themeToggle2 = document.getElementById("themeToggle2");
     const syncThemeToggle = () => {
       const currentTheme = localStorage.getItem("theme");
-      const isChecked = currentTheme === "dracula";
-      themeToggle1.checked = isChecked;
-      themeToggle2.checked = isChecked;
+      if (themeLabel1 && themeLabel2 && themeToggle1 && themeToggle2) {
+        const isDark = currentTheme === "dracula";
+        themeLabel1.classList.toggle("active", isDark);
+        themeLabel2.classList.toggle("active", !isDark);
+        themeToggle1.checked = isDark;
+        themeToggle2.checked = isDark;
+      }
     };
 
     syncThemeToggle();
 
-    themeLabel1.classList.add("swap");
-    themeLabel1.classList.add("swap-rotate");
-    themeLabel2.classList.add("swap");
-    themeLabel2.classList.add("swap-rotate");
+    [themeLabel1, themeLabel2].forEach((label) => {
+      if (label) {
+        label.classList.remove("hidden");
+        label.classList.add("swap", "swap-rotate");
+      }
+    });
 
     const handleToggleClick = () => {
       const currentTheme = localStorage.getItem("theme");
@@ -74,7 +98,21 @@
       syncThemeToggle();
     };
 
-    themeToggle1.addEventListener("click", handleToggleClick);
-    themeToggle2.addEventListener("click", handleToggleClick);
+    if (themeToggle1 && themeToggle) {
+      themeToggle1.disabled = true;
+      themeToggle.addEventListener("click", handleToggleClick);
+    }
+
+    if (themeToggle2) {
+      themeToggle2.addEventListener("click", handleToggleClick);
+    }
+
+    const backToTopButton = document.getElementById("backToTop");
+
+    if (backToTopButton) {
+      backToTopButton.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
   });
 </script>

@@ -1,25 +1,59 @@
 ---
-const { PageID } = Astro.props;
-const activeClass = "on"; // For primary color replace with `active` class
+import { menuItems } from "../consts";
+import { Icon } from "astro-icon/components";
 ---
 
-<ul class="menu bg-base-100 w-full m-0">
-  <li><a class="menu-item p-4" id="home" href="/">Home</a></li>
-  <li><a class="menu-item p-4" id="about" href="/about">About</a></li>
-  <li><a class="menu-item p-4" id="blog" href="/blog">Blogs</a></li>
-  <li><a class="menu-item p-4" id="project" href="/project">Projects</a></li>
-  <li><a class="menu-item p-4" id="friend" href="/friend">Friends</a></li>
-  <li>
-    <a
-      class="menu-item p-4"
-      href="mailto:contact.evesunmaple@outlook.com"
-      target="_blank"
-      referrerpolicy="no-referrer-when-downgrade">Contact</a
-    >
-  </li>
+<ul
+  class="menu bg-base-100 w-full m-0 flex flex-col items-center lg:items-start transition-colors"
+>
+  {
+    menuItems.map((item) => (
+      <li class="w-full relative">
+        {item.subItems ? (
+          <details class="menu-item">
+            <summary class="justify-center lg:justify-start items-center text-center text-xl md:text-3xl lg:text-xl font-bold p-4">
+              <span class="justify-center">
+                <Icon name={`menu/${item.svg}`} />
+              </span>
+              <span class="hidden lg:inline ml-2">{item.text}</span>
+            </summary>
+            <ul>
+              {item.subItems.map((subItem) => (
+                <li>
+                  <a
+                    tabindex="0"
+                    class="menu-item text-xl font-bold p-4"
+                    id={`header-${subItem.id}`}
+                    href={subItem.href}
+                    target={subItem.target || "_self"}
+                    aria-label={subItem.text}
+                  >
+                    <span class="inline-flex justify-center">
+                      <Icon name={`menu/${subItem.svg}`} />
+                    </span>
+                    <span class="hidden lg:inline ml-2">{subItem.text}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </details>
+        ) : (
+          <a
+            tabindex="0"
+            class="flex justify-center lg:justify-start items-center text-center text-xl md:text-3xl lg:text-xl font-bold p-4"
+            id={item.id}
+            title={item.id}
+            href={item.href}
+            target={item.target || "_self"}
+            aria-label={item.text}
+          >
+            <span class="inline-flex justify-center">
+              <Icon name={`menu/${item.svg}`} />
+            </span>
+            <span class="hidden lg:inline ml-2">{item.text}</span>
+          </a>
+        )}
+      </li>
+    ))
+  }
 </ul>
-
-<script define:vars={{ sideBarActiveItemID: PageID, activeClass: activeClass }}>
-  const activeItemElem = document.getElementById(sideBarActiveItemID);
-  activeItemElem && activeItemElem.classList.add(activeClass);
-</script>

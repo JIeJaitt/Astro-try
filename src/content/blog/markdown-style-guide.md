@@ -1,11 +1,13 @@
 ---
-title: 'Markdown Style Guide'
-description: 'Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.'
-pubDate: 'Jul 01 2024'
-image: '/home.webp'
+title: "Markdown Style Guide"
+description: "Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro."
+pubDate: "Jul 01 2024"
+image: "/index.webp"
+categories:
+  - tech
 tags:
   - Makrdown
-badge: Guide
+badge: Pin
 ---
 
 Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
