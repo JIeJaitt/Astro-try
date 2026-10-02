@@ -1,15 +1,13 @@
 ---
-import { USER_NAME } from "../consts";
-import { USER_SITE } from "../consts";
+import { USER_FOOTER_SOCIAL_ICONS, USER_NAME, USER_SITE } from "@config";
+import { Icon } from "astro-icon/components";
 ---
 
-<footer
-  class="relative footer gap-0 items-start card bg-base-100 shadow-xl p-8 items-center fade-in-up transition-colors"
->
-  <aside class="grid-flow-col items-center">
+<footer class="footer bg-base-100 p-10 rounded-xl shadow-lg">
+  <aside>
     <svg
-      width="36"
-      height="36"
+      width="50"
+      height="50"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
       fill-rule="evenodd"
@@ -21,21 +19,29 @@ import { USER_SITE } from "../consts";
       ></path>
     </svg>
     <p>
-      Copyright © <a href={USER_SITE} target="_blank" class="font-bold"
-        >{USER_NAME}</a
-      >
-      {new Date().getFullYear()} - All right reserved
+      Powered by <a href="https://github.com/EveSunMaple/Frosti" target="_blank" rel="noopener noreferrer" class="font-bold">Frosti Template</a>
+      <br />
+      Copyright © <a href={USER_SITE} target="_blank" rel="noopener noreferrer" class="font-bold">{USER_NAME}</a>
+      {new Date().getFullYear()} - All rights reserved
     </p>
   </aside>
   <nav>
-    <p>
-      Powered by
-      <!-- Thanks for using this template. You can keep this line to support my work :) -->
-      <a
-        href="https://github.com/EveSunMaple/Frosti"
-        target="_blank"
-        class="font-bold">Frosti Template ⚡️</a
-      >
-    </p>
+    <span class="footer-title">Social</span>
+    <div class="grid grid-flow-col gap-4">
+      {
+        USER_FOOTER_SOCIAL_ICONS.map((icon) => (
+          <div class="tooltip" data-tip={icon.title}>
+            <a tabindex="0" href={icon.href} aria-label={icon.ariaLabel}>
+              <Icon name={icon.svg} class="text-2xl md:text-xl" />
+            </a>
+          </div>
+        ))
+      }
+      <div class="tooltip" data-tip="RSS Feed">
+        <a tabindex="0" href="/rss.xml" aria-label="RSS Feed">
+          <Icon name="ri:rss-line" class="text-2xl md:text-xl" />
+        </a>
+      </div>
+    </div>
   </nav>
 </footer>

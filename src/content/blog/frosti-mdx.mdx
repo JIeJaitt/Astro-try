@@ -1,25 +1,26 @@
 ---
-title: Using mdx in Frosti
+title: Using mdx in Frosti 
 description: Using MDX in Frosti to enrich article content with more components
 pubDate: 07 12 2024
-image: /image/image2.jpg
+image: /image/image2.webp
 categories:
-  - tech
+  - Documentation
+  - Examples
 tags:
   - Frosti
   - Blog
   - Project
 ---
 
-import Collapse from "../../components/blog/collapse.astro";
-import Diff from "../../components/blog/diff.astro";
-import Error from "../../components/blog/error.astro";
-import Info from "../../components/blog/info.astro";
-import Kbd from "../../components/blog/kbd.astro";
-import Success from "../../components/blog/success.astro";
-import Warning from "../../components/blog/warning.astro";
-import TimeLine from "../../components/page/TimeLine.astro";
-import LinkCard from "../../components/page/LinkCard.astro";
+import Collapse from "../../components/mdx/Collapse.astro";
+import Diff from "../../components/mdx/Diff.astro";
+import Error from "../../components/mdx/Error.astro";
+import Info from "../../components/mdx/Info.astro";
+import Kbd from "../../components/mdx/Kbd.astro";
+import Success from "../../components/mdx/Success.astro";
+import Warning from "../../components/mdx/Warning.astro";
+import TimeLine from "../../components/mdx/TimeLine.astro";
+import LinkCard from "../../components/mdx/LinkCard.astro";
 
 ## Preface
 
@@ -33,18 +34,18 @@ First you need to create an `mdx` file, which is as simple as changing the exten
 
 ### Introducing
 
-The components provided by Frosti are placed in the `/blog` and `/page` folders. Write something under the document properties (frontmatter):
+The components provided by Frosti are placed in the `/mdx` folders. Write something under the document properties (frontmatter):
 
 ```astro
-import Collapse from "../../components/blog/collapse.astro"; import Diff from
-"../../components/blog/diff.astro"; import Error from
-"../../components/blog/error.astro"; import Info from
-"../../components/blog/info.astro"; import Kbd from
-"../../components/blog/kbd.astro"; import Success from
-"../../components/blog/success.astro"; import Warning from
-"../../components/blog/warning.astro"; import TimeLine from
-"../../components/page/TimeLine.astro"; import LinkCard from
-"../../components/page/LinkCard.astro";
+import Collapse from "../../components/mdx/Collapse.astro";
+import Diff from "../../components/mdx/Diff.astro";
+import Error from "../../components/mdx/Error.astro";
+import Info from "../../components/mdx/Info.astro";
+import Kbd from "../../components/mdx/Kbd.astro";
+import Success from "../../components/mdx/Success.astro";
+import Warning from "../../components/mdx/Warning.astro";
+import TimeLine from "../../components/mdx/TimeLine.astro";
+import LinkCard from "../../components/mdx/LinkCard.astro";
 ```
 
 ### Example
@@ -63,15 +64,15 @@ import Collapse from "../../components/blog/collapse.astro"; import Diff from
 
 #### Diff
 
-<Diff r="/image/r.png" l="/image/l.png"></Diff>
+<Diff l="/image/l.webp" r="/image/r.webp" />
 
 ```astro
-<Diff r="/image/r.png" l="/image/l.png" />
+<Diff l="/image/l.webp" r="/image/r.webp" />
 ```
 
 #### Error
 
-<Error>Maybe something went wrong? [www.baidu.com](https://www.baidu.com)</Error>
+<Error>Maybe something went wrong?</Error>
 
 ```astro
 <Error>Maybe something went wrong? </Error>
@@ -139,7 +140,7 @@ import Collapse from "../../components/blog/collapse.astro"; import Diff from
   title="Frosti"
   desc="My blog project!"
   url="https://github.com/EveSunMaple/Frosti"
-  img="/favicon.ico"
+  img="/logo.webp"
 />
 
 ```astro
@@ -147,6 +148,6 @@ import Collapse from "../../components/blog/collapse.astro"; import Diff from
   title="Frosti"
   desc="My blog project!"
   url="https://github.com/EveSunMaple/Frosti"
-  img="/favicon.ico"
+  img="/logo.webp"
 />
 ```
