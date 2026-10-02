@@ -45,7 +45,7 @@
   display: inline-block;
   color: var(--waline-theme-color);
   text-decoration: none;
-  word-break: break-word;
+  overflow-wrap: break-word;
   cursor: pointer;
 }
 
@@ -371,7 +371,7 @@
 .wl-preview .wl-content {
   min-height: 1.25em;
   padding: 0.25em;
-  word-break: break-word;
+  overflow-wrap: break-word;
   hyphens: auto;
 }
 
@@ -821,7 +821,7 @@
   width: 100%;
   height: 3.15em;
   background: rgba(255, 255, 255, 0.9);
-  color: #828586;
+  color: #646566;
   line-height: 3.15em;
   text-align: center;
 }

@@ -1,6 +1,15 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "strictNullChecks": true
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@config": ["src/config.ts"],
+      "@interfaces/*": ["src/interface/*"],
+      "@utils/*": ["src/utils/*"]
+    },
+    "strict": true
   }
 }

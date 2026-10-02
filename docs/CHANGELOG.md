@@ -160,7 +160,7 @@
 - 新增适用于平板的界面样式
 - 新增文章、仓库卡片的样式
 - 新增导航栏图标，适配平板样式
-- 现在你可以通过 `consts.ts` 自定义主题中的辅助文字内容
+- 现在您可以通过 `consts.ts` 自定义主题中的辅助文字内容
 
 ### Refactored
 
@@ -244,7 +244,7 @@
 ### Features
 
 - `consts.ts` 添加了标签页的配置，这是主名称
-- `BaseLayout.astro` 添加了标签页的配置，现在你可以为每一个页面添加属于它自己的标签页名称
+- `BaseLayout.astro` 添加了标签页的配置，现在您可以为每一个页面添加属于它自己的标签页名称
 
 ### Refactored
 
@@ -273,7 +273,7 @@
 
 ### Features
 
-- 添加分类功能，现在你可以为你的文章添加两个独立的索引：分类与标签
+- 添加分类功能，现在您可以为您的文章添加两个独立的索引：分类与标签
 - 给分类与标签的文章列表页面添加了分页功能，不再是一整页了
 - 在侧边栏集成了分类的功能，来自 issue #10
 
@@ -351,7 +351,7 @@
 
 ### Features
 
-- 添加了置顶功能，现在你可以给文章 badge 属性 设置为 `Pin` 来置顶你的文章
+- 添加了置顶功能，现在您可以给文章 badge 属性 设置为 `Pin` 来置顶您的文章
 
 ### Refactored
 
@@ -560,8 +560,492 @@
 
 ### Refactored
 
-- 整体页面调整（之前一直觉得 “贴屏幕贴得太近了” 这种感觉，现在好很多）包括宽度与字号
+- 整体页面调整（之前一直觉得 "贴屏幕贴得太近了" 这种感觉，现在好很多）包括宽度与字号
 
 ### Fix
 
 - 修复了若干问题
+
+## [2.8.1] - 2024-12-5
+
+### Features
+
+- 新增 `sitmap.xml` 代替自动生成的 `sitmap-0.xml`
+- 重写 `rss.xml.ts` 完善了格式并在 RSS 中添加了全文内容
+- 新增可重用组件 `GithubInfo` 路径:src\widget\GithubInfo.astro
+- 新增卡片布局 包括 `Aside` / `Horizontal` / `Vertical`
+- 为博客文章内容添加了渐入效果
+- 添加了手动开关评论系统的功能
+
+### Refactored
+
+- 组件布局统一并修改
+- 重写了博客底部 License 组件的样式
+- 清理了全局的 ClassName 以简化代码
+- 将 `tag` 路由更名为 `tags`
+
+### Fix
+
+- 可访问性修复:为必要的组件添加了 `aria-label` 以及由 `sr-only` 包裹的文本
+- 为代码框中的复制按钮添加了随机的专属的 `id` 与表单链接
+- 修复了分页按钮在仅有一页时出现的样式错误
+- 修复了在标签与分类页面下不显示字数与阅读时长的问题
+
+### Chore
+
+- 使用 `iconify` 代替了本地存储 svg 的方式
+
+## [2.9.0] - 2024-12-28
+
+### Features
+
+- 新增 `mdx/TocCopllapse.astro` 组件用于在文章中添加折叠的目录(小屏幕侧边栏无法显示时才出现)
+  - 新增 `remark-heading-extractor.mjs` 在服务端提取标题并存贮在 `frontmatter` 中
+  > [!NOTE]
+  > 原本想通过此组件实现在服务端生成所有目录, 但发现侧边栏并不在 `Swup` 的按需渲染范围之中, 所以只能保留在客户端生成目录的形式
+- 新增 `TocCard.astro` (拆分 `Tool.astro`)
+
+### Refactored
+
+- 取消了昼夜颜色的切换动画
+- 修改侧边栏结构, 删除了多余的组件合并为 `ProfileCard.astro` 并优化了样式
+  - 鼠标放在图标上新增小动画
+  - 微调了菜单与子菜单的间距
+- 完全重写 `License.astro` 组件的样式与构建逻辑
+  - 文末添加 'Thanks for reading!' (平衡页面)
+  - CC 图标移动至左上方
+  - 在 License 中添加文章信息如: 作者\发布日期\字数\阅读时长\永久链接\分类\标签
+  - 重写原本的分享组件
+- 针对所有 `MDX` 组件进行了样式优化
+  - 对所有 `alert` 使用统一格式
+  - 修改 `Kbd.astro` 新增大小 `size` 选项
+  - 重写 `Collapse.astro` 组件使用自定义格式而非由 DaisyUI 提供
+  - 针对 `Diff.astro` 组件添加了 `rightAlt` 等选项
+  - 修改 `TimeLine.astro` 组件的样式并添加了动效
+  - 修改 `LinkCard.astro` 组件的结构与样式
+  - 新增 `TocCopllapse.astro` 组件
+- 文字排版:行间距修改
+- 重写 `badge` 的样式而不是使用 DaisyUI 提供的默认样式
+  - 在 `TagCard.astro` 与 `CategoryCard.astro` 中使用全新的 `badge` 样式
+- 重写 `EnvelopeCard.astro` 组件的样式
+  - 文章信息展示修改
+    - 去除原本堆砌的 DaisyUI 样式
+    - 文章发表日期与字数统计等内容收纳至上方
+    - 文章分类与标签信息使用全新的 `badge` 样式
+    - 取消原本指针覆盖在图片上出现的小箭头样式
+  - 同理修改 `BaseCard.astro` 组件中文章信息的样式
+- 修改 `ProjectCard.astro` 组件的样式与逻辑
+  - 收纳逻辑至 `utils/github.ts` 等文件中
+  - 添加针对获取数据的格式化处理
+  - 代码语言改至左侧, 仓库信息放在右侧
+  - 删除针对 `Watch` 的数据统计
+- 修改 `Navbar.astro` 组件的样式与逻辑
+  - 使用调换重做顶部菜单按钮
+  - 添加顶部菜单滑入\滑出动画
+- 将分页制作为全新的可重用组件 `Pagination.astro`
+- 隐藏了 `TocCard` 的滑动条
+- 修改了 `code` 的样式
+- 布局文件微调
+
+### Fix
+
+- 修复了原 `CategoryCard.astro` 组件中错误的变量命名
+- 修复了图片放大导致的页面触摸失效问题
+
+### Chore
+
+- 基本上的变量都有了 `interface` 的定义
+- 基本上的图标都使用了 `iconify` 提供的图标
+
+## [2.9.1] - 2025-1-7
+
+### Features
+
+- 将 `astro-i18next` 替换为其上游库 `i18next`，以修复在 Node.js v22.12.0 中的兼容性问题
+  _（解决了导致国际化功能（i18n）在最新 Node.js 版本中无法正常工作的关键问题。）_
+
+### Fix
+
+- 修复了原 `tailwind.config.js` 中的引包
+- 修复了链接样式
+
+### Chore
+
+- 更换为更严格的 ESLint 作为代码格式化和检查工具  
+- 对 i18n 配置进行了小幅优化 
+- 移除了不必要的 node_modules 依赖
+
+## [3.0.0] - 2025-3-23
+
+恭喜！Frosti v3 正式发布！🎉
+
+### Features
+
+1. **主要卡片修改**
+   - **卡片布局修改**
+     
+     添加了新的组件 `Card.astro` 与 `CardGroup.astro`。后者包裹前者时，在手机端将会合并成一个卡片。示例代码：
+     
+     ```astro
+     <CardGroup>
+       <Card>
+         <img src="https://picsum.photos/200/300" alt="">
+         <div>
+           <h3>Card 1</h3>
+         </div>
+       </Card>
+       <Card>
+         <!-- More photos -->
+       </Card>
+     </CardGroup>
+     ```
+     
+     **演示：**
+
+     | version 3 | version 2 |
+     | :---: | :---: |
+     | ![image](https://github.com/user-attachments/assets/00945d87-29f7-4ff3-9272-98108773d0c5) | ![image](https://github.com/user-attachments/assets/0d180ed9-8f1f-446f-b2f6-844bce389f44) |
+
+   - **卡片样式修改**
+     
+     若有图片，标题将会浮在图片上方。同时右下角有一个可自定义的按钮，展示 description 或者更多信息。
+     
+     **演示：**
+
+     | version 3 | version 2 |
+     | :---: | :---: |
+     | ![image](https://github.com/user-attachments/assets/14de47ce-3889-474e-84ec-605e40dd38d4) | ![image](https://github.com/user-attachments/assets/e422f969-9a19-4ffb-85fc-2d92789b1ff7) |
+
+2. **侧边栏修改**
+   - `Profile.astro`
+     
+     **演示：**
+
+     | version 3 | version 2 |
+     | :---: | :---: |
+     | ![image](https://github.com/user-attachments/assets/25c344a3-4485-4c97-a447-e1fb6e4c88b1) | ![image](https://github.com/user-attachments/assets/3f2eb595-d517-4a3c-b4d7-e36c3b2ad417) |
+   - **添加了新的侧边栏组件**
+     - 搜索栏
+     - 标签、分类、以及归档按钮
+
+       **演示：**
+
+       | version 3 | version 2 |
+       | :---: | :---: |
+       | ![image](https://github.com/user-attachments/assets/aeb85e5d-d6cd-428e-9000-ac5aeadfebe7) | ![image](https://github.com/user-attachments/assets/8e35bce0-587a-4116-8788-2d51cad634d6) |
+
+   - **修改了目录的样式与运动效果**
+     
+     **演示：**
+
+     | version 3 | version 2 |
+     | :---: | :---: |
+     | ![Peek 2025-03-23 16-06](https://github.com/user-attachments/assets/d9ba2e3d-5f56-4504-a2f9-5cdb4b2b53cd) | ![Peek 2025-03-23 16-07](https://github.com/user-attachments/assets/0d4ef32c-0962-40df-af7e-85c6c1a4415f) |
+
+3. **添加了新的页面**
+   - 归档页面
+
+     ![image](https://github.com/user-attachments/assets/1938ee40-c2ff-4610-a0bb-2509039b1c86)
+   - 标签页面
+
+     ![image](https://github.com/user-attachments/assets/449604e3-e65b-478c-ba18-0cf488c51015)
+   - 分类页面
+
+     ![image](https://github.com/user-attachments/assets/5758c9bc-dcd5-4372-9dc1-8a067c47c7c1)
+   - 搜索页面
+
+     ![image](https://github.com/user-attachments/assets/44ce7175-64a5-4890-8ef1-33b359cacf94)
+
+4. **修改了原有的页面样式**
+   - 新增了类似于工具栏的内容
+
+     **演示：**
+
+     | version 3 | version 2 |
+     | :---: | :---: |
+     | ![image](https://github.com/user-attachments/assets/1c2ab392-8bfe-44fe-a208-ea7deef7f10d) | None |
+   - 以及其他等等：
+
+     **演示：**
+
+     | version 3 | version 2 |
+     | :---: | :---: |
+     | ![image](https://github.com/user-attachments/assets/e93390c7-1331-4606-aa05-8cb4e4a6678d) | None |
+
+5. **新增 MDX 组件**
+   - `GitHubStats.astro`
+   
+     ```astro
+     <GitHubStats username="frosti-team" />
+     <GitHubStats username="frosti-team" repositoryName="frosti" />
+     ```
+   - `RepositoryCard.astro`
+     
+     ```astro
+     <RepositoryCard repo="frosti-team/frosti" />
+     <RepositoryCard
+       repo="frosti-team/frosti"
+       image={import("../../assets/images/repo-cover.png")}
+       isPinned={true}
+     />
+     ```
+   - `FeatureCard.astro`
+     
+     ```astro
+     <FeatureCard
+       title="响应式设计"
+       description="完美适配各种屏幕尺寸，从手机到桌面设备。"
+       icon="lucide:layout"
+       color="oklch(0.7 0.2 140)"
+     />
+     ```
+   - `FriendCard.astro`
+     
+     ```astro
+     <FriendCard
+       name="SunMaple"
+       avatar={import("../../assets/images/avatars/sunmaple.png")}
+       description="前端开发工程师，Frosti 核心贡献者"
+       url="https://www.saroprock.com"
+       type="contributor"
+     />
+     ```
+
+6. **添加了 404 页面**
+![image](https://github.com/user-attachments/assets/b1df378b-751f-42c1-b6ca-b902c463dc53)
+
+
+### Refactored
+
+- 修复了分页按钮的样式问题
+- 修改了标签以及分类按钮的样式
+- 修改了文章图片hover的效果
+- 为了适配 Astro v5 重写的代码框：
+
+  **演示：**
+
+  | version 3 | version 2 |
+  | :---: | :---: |
+  | ![image](https://github.com/user-attachments/assets/d925d150-6af1-4075-8672-e84dc1293566) | ![image](https://github.com/user-attachments/assets/a4c60c34-0df8-495f-a633-7e95cc33dc16) |
+
+
+### Fix
+
+- 修复了错误的昼夜切换逻辑（为什么一直没有人发现它？）
+- 修复了在纯净式阅读器或者 RSS 阅读器中代码框样式出错的问题
+
+### Chore
+
+- 移除了 Waline 评论系统
+- 移除了点击图片放大的功能
+
+## [3.1.0] - 2025-3-29
+
+### Features
+
+- 添加了属于手机端的专属目录 `MobileTOC`
+- 添加了代码框的行号样式
+- 添加了页面脚注的样式
+
+### Refactored
+
+- 修改了 About 页面的时间线组件
+- 修改了若干按钮的响应式尺寸
+- 修改了搜索框的样式设计
+- 在小屏幕隐藏默认目录
+
+### Fix
+
+- 修复了网站标题在 Tab 栏显示错误的问题
+- 修复了在文章缺失图片的样式错误
+
+### Chore
+
+- 移除了不必要的引用
+
+## [3.1.1] - 2025-3-30
+
+### Features
+
+- 在 `frosti.config.yaml` 中添加单个页面文章数量的配置
+- 添加了对于日期与月份的 i18n 配置
+- 添加了大量语言配置
+
+### Refactored
+
+- 将可重用代码集中到了 `/utils` 中
+- 将 `hints` 降至 0
+
+### Fix
+
+- 修复了在 RSS 中仍然显示草稿文章的问题
+
+## [3.1.2] - 2025-4-19
+
+### Features
+
+- 新增了一篇如何配置评论系统的教程
+
+### Refactored
+
+- 在侧边栏移除了不必要的 `title` 属性
+
+### Fix
+
+- 修复了未适配 Chrome 的自动深色主题 #78
+
+## [3.1.3] - 2025-5-24
+
+### Chore
+
+- 更新依赖
+- 在 Friends 页面添加了新的贡献者
+- 移除了不必要的 css 文件（之前的残留）
+
+### Fix
+
+- 修复了分类页面中展开动画的样式
+- 修复了分类页面中 `post` 缺失的过渡效果
+
+## [3.1.4] - 2025-5-31
+
+### Chore
+
+- 新增一篇数学公式示例文章
+
+### Fix
+
+- 修复了数学公式的渲染问题（先前缺少了必要的 CSS 文件）
+
+## [3.1.5] - 2025-6-21
+
+### Refactored
+
+- 修改了页面结构，现在即使页面内容很少，页脚也会被固定在底部
+
+### Fix
+
+- 修复了原侧边栏按钮大小不一的问题
+- 修复了 404 页面被编入搜索索引的问题
+  - **现在您可以自定义每个页面是否被搜索索引**
+- 修复了表单没有关联元素、按钮没有可访问名称的无障碍问题
+- 修复了博客列表页面间距与整站不一的问题
+- 修复了在黑暗模式下边框颜色不正确的问题
+
+## [3.2.0] - 2025-7-13
+
+### Features
+
+- 现在运行开发服务器时，更新 `frosti.config.yaml` 也会重新启动开发服务器应用更改
+- 现在您可以使用 `frosti.update.sh` 快速更新项目
+- 现在您可以在 `friend` 页面中添加自己的网站
+
+### Refactored
+
+- 微调了页面结构与文章内容
+
+### Fixed
+
+- 修复了在 `title` 过长时，标题样式与 `MainCard` 边框重叠的问题，现在会自动适应
+
+## [3.2.1] - 2025-7-28
+
+### Chore
+
+- 现在如果访问不存在的标签或者分类，会返回特定的 404 页面 [#86](https://github.com/EveSunMaple/Frosti/discussions/86)
+- 修改了 Issue 提问的模板
+
+### Refactored
+
+- 将统计字数与时间的插件从 `.mjs` 改成了 `.ts`
+
+### Fixed
+
+- 修复了在 `SearchBar` 多次搜索导致出现多个搜索框的问题 [#87](https://github.com/EveSunMaple/Frosti/issues/87)
+
+## [3.3.0] - 2025-9-20
+
+### Features
+
+- 现在 Frosti 可以每一篇文章生成社交媒体图片
+- 使用 [Expressive Code](https://expressive-code.com/) 重新渲染代码框
+
+## [3.3.1] - 2025-10-1
+
+### Features
+
+- 现在分享文章时，可以预览社交媒体图片
+
+### Chore
+
+- 优化了生成社交媒体图片时的字体获取逻辑，大大提高了生成速度
+
+### Fix
+
+- 修复 src/pages/og/[slug].png.ts 不支持子目录中的博客文章 #93
+- 修复了在分类页面标题会超出文章卡片的问题
+
+## [3.3.2] - 2025-12-05
+
+### Features
+
+- 新增 CI 流水线，使用 GitHub Actions 在每次推送和 Pull Request 时自动执行：
+  - `pnpm astro-check` 类型检查
+  - `pnpm biome:check` 代码检查
+  - `pnpm biome:format` 格式检查
+
+### Refactored
+
+- 用 `Biome` 统一接管代码格式化与 Lint 流程
+- 移除了旧的 ESLint 配置与依赖，改用 `@biomejs/biome` 作为开发依赖
+- 调整了 dayjs 与 `mdast` 相关类型声明，修复了类型重复声明和命名遮蔽的问题
+- 在 `content` 配置与部分插件中补充了显式的 TypeScript 类型注解，使 `astro check` 与 `biome check` 在严格模式下也能顺利通过
+- 根据 #95 将最前部的提示移到了最后
+
+### Chore
+
+- 清理了不再使用的 Lint/格式化依赖
+
+## [3.3.3] - 2026-01-18
+
+### Fix
+
+- 修复了站点地图包含草稿文章的问题，并且移除了之前的错误实现 #97
+
+## [4.0.0] - 2026-08-09
+
+### Breaking Changes
+
+- 升级到 Astro 7，内容集合配置已迁移到 `src/content.config.ts` 并使用新的 glob loader；自定义过内容集合的部署需要同步调整
+
+### Features
+
+- 同步升级 MDX、RSS、Sitemap、Expressive Code、Compress 等集成
+- 为文章页添加 `BlogPosting` JSON-LD，为其他页面添加 `WebSite` JSON-LD
+- 补全 Open Graph / Twitter Card 元信息，并为非文章页提供默认分享图
+- 新增“跳到主要内容”的无障碍快捷链接
+- CI 新增生产构建与依赖安全审计
+
+### Refactored
+
+- 使用 Astro 渲染后的 HTML 生成 RSS，不再出现 MDX 源码或未渲染的数学公式
+- 移除 GitHubStats 的随机假提交热力图，并清理无效 props
+- 优化图片：`public/` 大图全部转 WebP 并压缩，构建体积从约 10MB 降至约 4.5MB
+- DaisyUI 仅打包当前使用的两个主题，按需加载 KaTeX 与 dayjs 语言包
+- 统一 sharp 版本，消除构建期重复 libvips 警告
+- 收紧 TypeScript 类型，移除大量 `any`
+
+### Fix
+
+- 修复 `pnpm run search:clean` 因缺少 `rimraf` 而失败的问题
+- 修复 RSS 非法的 `xmlns:version` 命名空间与发布日期偏移
+- 修复博客卡片标题非法 ID、`BaseCard` 重复 ID、目录锚点在禁用 JS 时失效的问题
+- 修复外部链接缺少 `rel="noopener noreferrer"` 的问题
+- 修复系统主题偏好首次访问后被固定、不再跟随系统变化的问题
+- 修复 `Makrdown` 标签拼写错误
+- 修复 Vercel 构建时 pnpm 版本与 lockfile 不匹配、`@parcel/watcher` 构建脚本未授权的问题
+
+### Chore
+
+- 移除大量未使用的依赖与死代码
+- 更新 VS Code 配置、贡献指南与安全策略文档

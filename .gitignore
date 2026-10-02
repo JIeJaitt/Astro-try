@@ -19,3 +19,12 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# jetbrains setting folder
+.idea/
+
+# pagefind
+public/pagefind/
+
+# local pnpm store
+.pnpm-store/
